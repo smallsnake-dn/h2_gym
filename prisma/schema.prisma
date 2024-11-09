@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model core_article {
+  articleid    Int       @id @default(autoincrement())
+  articletagid Int
+  title        String    @db.VarChar(2000)
+  content      String
+  isactived    Boolean
+  createduser  String    @db.VarChar(20)
+  createddate  DateTime  @db.Timestamp(6)
+  updateduser  String?   @db.VarChar(20)
+  updateddate  DateTime? @db.Timestamp(6)
+  isdeleted    Boolean
+  deleteduser  String?   @db.VarChar(20)
+  deleteddate  DateTime? @db.Timestamp(6)
+}
+
+model core_articletag {
+  articletagid   Int       @id @default(autoincrement())
+  articletagname String    @db.VarChar(1000)
+  isactived      Boolean
+  createduser    String    @db.VarChar(20)
+  createddate    DateTime  @db.Timestamp(6)
+  updateduser    String?   @db.VarChar(20)
+  updateddate    DateTime? @db.Timestamp(6)
+  isdeleted      Boolean
+  deleteduser    String?   @db.VarChar(20)
+  deleteddate    DateTime? @db.Timestamp(6)
+}
+
+model core_booking {
+  bookingid      Int       @id @default(autoincrement())
+  customername   String    @db.VarChar(1000)
+  phone          String    @db.VarChar(20)
+  apointmenttime DateTime  @db.Timestamp(6)
+  description    String?   @db.VarChar(2000)
+  statusid       Int
+  statusnote     String?   @db.VarChar(2000)
+  isactived      Boolean
+  createduser    String    @db.VarChar(20)
+  createddate    DateTime  @db.Timestamp(6)
+  updateduser    String?   @db.VarChar(20)
+  updateddate    DateTime? @db.Timestamp(6)
+  isdeleted      Boolean
+  deleteduser    String?   @db.VarChar(20)
+  deleteddate    DateTime? @db.Timestamp(6)
+}
+
+model core_coachlist {
+  coachlistid Int       @id @default(autoincrement())
+  firstname   String    @db.VarChar(100)
+  lastname    String    @db.VarChar(100)
+  dob         DateTime  @db.Timestamp(6)
+  startdate   DateTime  @db.Timestamp(6)
+  experience  Int
+  avatar      String    @db.VarChar(1000)
+  phone       String?   @db.VarChar(20)
+  email       String?   @db.VarChar(50)
+  isactived   Boolean
+  createduser String    @db.VarChar(20)
+  createddate DateTime  @db.Timestamp(6)
+  updateduser String?   @db.VarChar(20)
+  updateddate DateTime? @db.Timestamp(6)
+  isdeleted   Boolean
+  deleteduser String?   @db.VarChar(20)
+  deleteddate DateTime? @db.Timestamp(6)
+}
+
+model core_customerfeedback {
+  customerfeedbackid Int       @id @default(autoincrement())
+  customername       String    @db.VarChar(50)
+  gender             Int       @db.SmallInt
+  content            String    @db.VarChar(2000)
+  numberofstar       Int?      @db.SmallInt
+  avatar             String    @db.VarChar(1000)
+  videopath          String    @db.VarChar(1000)
+  isactived          Boolean
+  createduser        String    @db.VarChar(20)
+  createddate        DateTime  @db.Timestamp(6)
+  updateduser        String?   @db.VarChar(20)
+  updateddate        DateTime? @db.Timestamp(6)
+  isdeleted          Boolean
+  deleteduser        String?   @db.VarChar(20)
+  deleteddate        DateTime? @db.Timestamp(6)
+}
+
+model core_package {
+  packageid   Int       @id @default(autoincrement())
+  title       String    @db.VarChar(200)
+  description String?   @db.VarChar(2000)
+  isactived   Boolean
+  createduser String    @db.VarChar(20)
+  createddate DateTime? @db.Timestamp(6)
+  updateduser String?   @db.VarChar(20)
+  updateddate DateTime? @db.Timestamp(6)
+  isdeleted   Boolean
+  deleteduser String?   @db.VarChar(20)
+  deleteddate DateTime? @db.Timestamp(6)
+}
+
+model core_package_info {
+  packageinfoid Int       @id @default(autoincrement())
+  packageid     Int
+  packagetitle  String    @db.VarChar(1000)
+  packagevalue  String    @db.VarChar(2000)
+  isactived     Boolean
+  createduser   String    @db.VarChar(20)
+  createddate   DateTime  @db.Timestamp(6)
+  updateduser   String?   @db.VarChar(20)
+  updateddate   DateTime? @db.Timestamp(6)
+  isdeleted     Boolean
+  deleteduser   String?   @db.VarChar(20)
+  deleteddate   DateTime? @db.Timestamp(6)
+}
+
+model core_servicecategories {
+  servicecategoriesid   Int       @id @default(autoincrement())
+  servicecategoriesname String    @db.VarChar(500)
+  icon                  String    @db.VarChar(100)
+  description           String?   @db.VarChar(2000)
+  isactived             Boolean
+  createduser           String    @db.VarChar(20)
+  createddate           DateTime  @db.Timestamp(6)
+  updateduser           String?   @db.VarChar(20)
+  updateddate           DateTime? @db.Timestamp(6)
+  isdeleted             Boolean
+  deleteduser           String?   @db.VarChar(20)
+  deleteddate           DateTime? @db.Timestamp(6)
+}
+
+model core_studioimage {
+  studioimageid   Int       @id @default(autoincrement())
+  studioimagename String    @db.VarChar(1000)
+  studioimagepath String    @db.VarChar(1000)
+  description     String?   @db.VarChar(2000)
+  isactived       Boolean
+  createduser     String    @db.VarChar(20)
+  createddate     DateTime  @db.Timestamp(6)
+  updateduser     String?   @db.VarChar(20)
+  updateddated    DateTime? @db.Timestamp(6)
+  isdeleted       Boolean
+  deleteduser     String?   @db.VarChar(20)
+  deleteddate     DateTime? @db.Timestamp(6)
+}
+
+model system_users {
+  systemuserid Int       @id @default(autoincrement())
+  username     String    @db.VarChar(20)
+  password     String    @db.VarChar(1000)
+  isactived    Boolean
+  createddate  DateTime  @db.Timestamp(6)
+  updateddate  DateTime? @db.Timestamp(6)
+}
+
+model core_carousellist {
+  carousellistid   Int       @id(map: "core_carosellist_pkey") @default(autoincrement())
+  carousellistname String?   @db.VarChar(1000)
+  carouselpath     String    @db.VarChar(1000)
+  description      String?   @db.VarChar(2000)
+  isactived        Boolean
+  createduser      String    @db.VarChar(20)
+  createddate      DateTime  @db.Timestamp(6)
+  updateduser      String?   @db.VarChar(20)
+  updateteddate    DateTime? @db.Timestamp(6)
+  isdeleted        Boolean
+  deleteduser      String?   @db.VarChar(20)
+  deleteddate      DateTime? @db.Timestamp(6)
+}
