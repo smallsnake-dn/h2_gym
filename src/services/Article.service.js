@@ -49,6 +49,25 @@ class ArticleService {
         })
     }
 
+    async getByLimit(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = await db.core_article.findMany({
+            select : {
+                articleid : true,
+                articletagid : true,
+                content : true,
+                title : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false
+            },
+            take : parseInt(params.limit)
+        })
+        return rs;
+    }
+
 }
 
 

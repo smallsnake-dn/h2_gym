@@ -49,6 +49,27 @@ class CustomerFeedBackService {
         })
     }
 
+    async getByLimit(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = await db.core_customerfeedback.findMany({
+            select :{
+                customerfeedbackid : true,
+                avatar : true,
+                content : true,
+                customername : true,
+                gender : true,
+                numberofstar : true,
+                videopath : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false
+            },
+            take : parseInt(params.limit)
+        })
+        return rs;
+    }
 }
 
 

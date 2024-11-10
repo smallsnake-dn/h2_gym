@@ -6,12 +6,14 @@ class BookingService {
     async create(req) {
         const data = req.body.data.map((val, index, arr) => {
             return {
-                ...val,
+                statusid : 0,
                 description : val.description ? val.description : "",
                 isactived : true,
                 createduser : "test",
                 createddate : dateTimeUtil.getCurrentDateInTimeZone(),
-                isdeleted : false
+                isdeleted : false,
+                ...val,
+                apointmenttime : new Date(val.apointmenttime)
             }
         });
         const user = req.userLogin
@@ -48,6 +50,29 @@ class BookingService {
                 bookingid : data.bookingid
             }
         })
+    }
+
+    async getByLimit(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = await db.core_booking.findMany({
+            select : {
+                bookingid : true,
+                apointmenttime : true,
+                customername : true,
+                createddate : true,
+                phone : true,
+                statusid : true,
+                statusnote : true,
+                description : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false
+            }, 
+            take : parseInt(params.limit)
+        })
+        return rs;
     }
 
 }

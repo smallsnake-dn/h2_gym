@@ -1,10 +1,11 @@
 
 
 class ObjectResponse {
-    static ok() {
+    static ok(data = {}) {
         return {
             isError : false,
-            message : "OK"
+            message : "OK",
+            data
         }
     }
 

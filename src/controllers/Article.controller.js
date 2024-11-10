@@ -28,6 +28,14 @@ class ArticleController {
             next(error)
         }
     }
+
+    async getByLimit(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await articleService.getByLimit(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new ArticleController()

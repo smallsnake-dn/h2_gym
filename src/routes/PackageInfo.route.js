@@ -1,10 +1,9 @@
 const { Router } = require("express")
-const serviceController = require("../controllers/ServiceCategories.controller")
+const serviceController = require("../controllers/PackageInfo.controller")
 const route = Router()
 
 route.post("/", serviceController.create);
 route.put("/", serviceController.update);
 route.delete("/", serviceController.delete);
-route.get("/:limit", serviceController.getByLimit);
 
 module.exports = route

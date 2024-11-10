@@ -2,12 +2,11 @@ const db = require("../providers/db")
 const dateTimeUtil = require("../utils/DateTime.util")
 
 
-class ServiceCategoriesService {
+class PackageInfoService {
     async create(req) {
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
-                description : val.description ? val.description : "",
                 isactived : true,
                 createduser : "test",
                 createddate : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -15,7 +14,7 @@ class ServiceCategoriesService {
             }
         });
         const user = req.userLogin
-        await db.core_servicecategories.createMany({
+        await db.core_package_info.createMany({
             data
         })
     }
@@ -23,14 +22,14 @@ class ServiceCategoriesService {
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_servicecategories.update({
+        await db.core_package_info.update({
             data : {
                 ...data,
                 updateddate : dateTimeUtil.getCurrentDateInTimeZone(),
                 updateduser : "test"
             },
             where : {
-                servicecategoriesid: data.servicecategoriesid
+                packageinfoid : data.packageinfoid
             }
         })
     }
@@ -38,38 +37,20 @@ class ServiceCategoriesService {
     async delete(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_servicecategories.update({
+        await db.core_package_info.update({
             data : {
                 deleteddate : dateTimeUtil.getCurrentDateInTimeZone(),
                 deleteduser : "test",
                 isdeleted: true
             },
             where: {
-                servicecategoriesid : data.servicecategoriesid
+                packageinfoid : data.packageinfoid
             }
         })
     }
 
-    async getByLimit(req) {
-        const data = req.body.data;
-        const params = req.params;
-        const rs = await db.core_servicecategories.findMany({
-            select : {
-                servicecategoriesid : true,
-                servicecategoriesname : true,
-                icon : true,
-                description : true
-            },
-            where : {
-                isactived : true,
-                isdeleted : false
-            },
-            take : parseInt(params.limit)
-        })
-        return rs;
-    }
 
 }
 
 
-module.exports = new ServiceCategoriesService();
+module.exports = new PackageInfoService();

@@ -92,32 +92,34 @@ model core_customerfeedback {
 }
 
 model core_package {
-  packageid   Int       @id @default(autoincrement())
-  title       String    @db.VarChar(200)
-  description String?   @db.VarChar(2000)
-  isactived   Boolean
-  createduser String    @db.VarChar(20)
-  createddate DateTime? @db.Timestamp(6)
-  updateduser String?   @db.VarChar(20)
-  updateddate DateTime? @db.Timestamp(6)
-  isdeleted   Boolean
-  deleteduser String?   @db.VarChar(20)
-  deleteddate DateTime? @db.Timestamp(6)
+  packageid         Int                 @id @default(autoincrement())
+  title             String              @db.VarChar(200)
+  description       String?             @db.VarChar(2000)
+  isactived         Boolean
+  createduser       String              @db.VarChar(20)
+  createddate       DateTime?           @db.Timestamp(6)
+  updateduser       String?             @db.VarChar(20)
+  updateddate       DateTime?           @db.Timestamp(6)
+  isdeleted         Boolean
+  deleteduser       String?             @db.VarChar(20)
+  deleteddate       DateTime?           @db.Timestamp(6)
+  core_package_info core_package_info[]
 }
 
 model core_package_info {
-  packageinfoid Int       @id @default(autoincrement())
+  packageinfoid Int          @id @default(autoincrement())
   packageid     Int
-  packagetitle  String    @db.VarChar(1000)
-  packagevalue  String    @db.VarChar(2000)
+  packagetitle  String       @db.VarChar(1000)
+  packagevalue  String       @db.VarChar(2000)
   isactived     Boolean
-  createduser   String    @db.VarChar(20)
-  createddate   DateTime  @db.Timestamp(6)
-  updateduser   String?   @db.VarChar(20)
-  updateddate   DateTime? @db.Timestamp(6)
+  createduser   String       @db.VarChar(20)
+  createddate   DateTime     @db.Timestamp(6)
+  updateduser   String?      @db.VarChar(20)
+  updateddate   DateTime?    @db.Timestamp(6)
   isdeleted     Boolean
-  deleteduser   String?   @db.VarChar(20)
-  deleteddate   DateTime? @db.Timestamp(6)
+  deleteduser   String?      @db.VarChar(20)
+  deleteddate   DateTime?    @db.Timestamp(6)
+  core_package  core_package @relation(fields: [packageid], references: [packageid], onDelete: Cascade, onUpdate: Restrict, map: "fk_package_id_12312")
 }
 
 model core_servicecategories {

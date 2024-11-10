@@ -50,6 +50,25 @@ class StudioImageService {
         })
     }
 
+    async getByLimit (req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = db.core_studioimage.findMany({
+            select :  {
+                studioimageid : true,
+                studioimagename : true,
+                studioimagepath : true,
+                description : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false
+            },
+            take : parseInt(params.limit)
+        })
+        return rs;
+    }
+
 }
 
 

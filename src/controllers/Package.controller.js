@@ -1,12 +1,13 @@
-const serviceCategories = require("../services/ServiceCategories.service")
-const dateTimeUtil = require("../utils/DateTime.util")
+
+const packageSerivce = require("../services/Package.service")
 const ObjectResponse = require("./response/ObjectResponse")
 
 
-class ServiceCategoriesController {
+class PackageController {
     async create(req ,res, next) {
         try {
-            await serviceCategories.create(req);
+            console.log("HEREEEEEEEEEEEEE");
+            await packageSerivce.create(req);
             res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
@@ -15,7 +16,7 @@ class ServiceCategoriesController {
 
     async update(req ,res, next) {
         try {
-            await serviceCategories.update(req);
+            await packageSerivce.update(req);
             res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
@@ -24,21 +25,20 @@ class ServiceCategoriesController {
 
     async delete(req ,res, next) {
         try {
-            await serviceCategories.delete(req);
+            await packageSerivce.delete(req);
             res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
         }
     }
 
-    async getByLimit(req ,res, next) {
-        try {
-            res.send(ObjectResponse.ok(await serviceCategories.getByLimit(req)));
+    async getByLimit (req, res, next) {
+        try { 
+            res.send(ObjectResponse.ok(await packageSerivce.getByLimit(req)));
         } catch (error) {
             next(error)
         }
     }
 }
 
-
-module.exports = new ServiceCategoriesController();
+module.exports = new PackageController()

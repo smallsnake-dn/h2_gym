@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const serviceController = require("../controllers/ServiceCategories.controller")
+const serviceController = require("../controllers/Package.controller")
 const route = Router()
 
 route.post("/", serviceController.create);

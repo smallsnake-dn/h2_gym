@@ -51,6 +51,30 @@ class CoachService {
             }
         })
     }
+
+    async getByLimit(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = db.core_coachlist.findMany({
+            select : {
+                coachlistid : true,
+                avatar : true,
+                dob: true,
+                email : true,
+                experience : true,
+                startdate : true,
+                firstname : true,
+                lastname : true,
+                phone : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false
+            },
+            take : parseInt(params.limit)
+        })
+        return rs;
+    }
 }
 
 module.exports = new CoachService();

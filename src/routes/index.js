@@ -8,6 +8,8 @@ const coachRoute = require("./Coach.route")
 const customerFeedBack = require("./CustomerFeedBack.route")
 const serviceCategoriesRoute = require("./SerivceCategories.route")
 const studioImageRoute = require("./StudioImage.route")
+const packageRoute = require("./Package.route")
+const packageInfoRoute = require("./PackageInfo.route")
 
 const router = (app) => {
   app.use("/auth", auth); 
@@ -19,6 +21,8 @@ const router = (app) => {
   app.use("/coach", coachRoute);
   app.use("/customer-feedback", customerFeedBack);
   app.use("/studio-image", studioImageRoute);
+  app.use("/package", packageRoute);
+  app.use("/package-info", packageInfoRoute);
 };
 
 module.exports = router;

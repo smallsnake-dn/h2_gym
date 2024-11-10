@@ -1,22 +1,21 @@
+
+
 const db = require("../providers/db")
 const dateTimeUtil = require("../utils/DateTime.util")
 
-
-class CarouselService {
+class PackageService {
     async create(req) {
-        console.log(req.body.data);
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
-                description : val.description ? val.description : "",
+                isactived : true,
                 createddate : dateTimeUtil.getCurrentDateInTimeZone(),
                 createduser : "test user",
-                isactived : true,
                 isdeleted : false
             }
         });
         const user = req.userLogin;
-        await db.core_carousellist.createMany({
+        await db.core_package.createMany({
             data
         })
     }
@@ -24,14 +23,14 @@ class CarouselService {
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_carousellist.update({
+        await db.core_package.update({
             data : {
                 ...data,
-                updateduser : "test",
-                updateteddate : dateTimeUtil.getCurrentDateInTimeZone()
+                updateddate: dateTimeUtil.getCurrentDateInTimeZone(),
+                updateduser: "test"
             },
             where : {
-                carousellistid : data.carousellistid
+                packageid : data.packageid
             }
         })
     }
@@ -39,41 +38,49 @@ class CarouselService {
     async delete(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_carousellist.update({
-            data: {
+        await db.core_package.update({
+            data : {
                 deleteddate : dateTimeUtil.getCurrentDateInTimeZone(),
-                deleteduser: "test",
+                deleteduser : "test",
                 isdeleted: true
             },
             where : {
-                carousellistid : data.carousellistid
+                packageid : data.packageid
             }
         })
     }
 
-    async getLimit(req) {
-        console.log({req : req.params});
+    async getByLimit(req) {
         const data = req.body.data;
         const params = req.params;
-        const user = req.userLogin;
-        const rs = await db.core_carousellist.findMany({
+        const rs = db.core_package.findMany({
             select : {
-                carousellistid : true,
-                carousellistname : true,
-                carouselpath : true
+                packageid : true,
+                title : true,
+                description : true,
+                core_package_info : {
+                    select : {
+                        packageinfoid : true,
+                        packagetitle : true,
+                        packagevalue : true
+                    },
+                    where : {
+                        isactived : true,
+                        isdeleted : false
+                    },
+                    take : parseInt(params.limit),
+                    orderBy : {
+                        createddate : "desc"
+                    }
+                }
             },
             where : {
                 isactived : true,
                 isdeleted : false
             }
-            ,
-            skip : 0,
-            take : parseInt(params.limit)
         })
         return rs;
     }
-
 }
 
-
-module.exports = new CarouselService();
+module.exports = new PackageService();

@@ -28,6 +28,14 @@ class CarouselController {
             next(error)
         }
     }
+
+    async getByLimit(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await carouselService.getLimit(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new CarouselController()

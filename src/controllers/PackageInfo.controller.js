@@ -1,11 +1,12 @@
-const studioImageService = require("../services/StudioImage.service")
+
+const packageSerivce = require("../services/PackageInfo.service")
 const ObjectResponse = require("./response/ObjectResponse")
 
 
-class StudioImageController {
+class PackageInfoController {
     async create(req ,res, next) {
         try {
-            await studioImageService.create(req);
+            await packageSerivce.create(req);
             res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
@@ -14,7 +15,7 @@ class StudioImageController {
 
     async update(req ,res, next) {
         try {
-            await studioImageService.update(req);
+            await packageSerivce.update(req);
             res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
@@ -23,21 +24,12 @@ class StudioImageController {
 
     async delete(req ,res, next) {
         try {
-            await studioImageService.delete(req);
+            await packageSerivce.delete(req);
             res.send(ObjectResponse.ok());
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    async getByLimit(req, res, next) {
-        try {
-            res.send(ObjectResponse.ok(await studioImageService.getByLimit(req)));
         } catch (error) {
             next(error)
         }
     }
 }
 
-
-module.exports = new StudioImageController()
+module.exports = new PackageInfoController()

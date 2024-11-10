@@ -1,10 +1,11 @@
 const bookingService = require("../services/Booking.service")
+const ObjectResponse = require("./response/ObjectResponse")
 
 class BookingController {
     async create(req ,res, next) {
         try {
             await bookingService.create(req);
-            res.send("OK");
+            res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
         }
@@ -13,7 +14,7 @@ class BookingController {
     async update(req ,res, next) {
         try {
             await bookingService.update(req);
-            res.send("OK");
+            res.send(ObjectResponse.ok());
         } catch (error) {
             next(error)
         }
@@ -22,7 +23,15 @@ class BookingController {
     async delete(req ,res, next) {
         try {
             await bookingService.delete(req);
-            res.send("OK");
+            res.send(ObjectResponse.ok());
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getByLimit(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await bookingService.getByLimit(req)));
         } catch (error) {
             next(error)
         }
