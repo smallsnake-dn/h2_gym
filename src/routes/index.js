@@ -12,17 +12,17 @@ const packageRoute = require("./Package.route")
 const packageInfoRoute = require("./PackageInfo.route")
 
 const router = (app) => {
-  app.use("/auth", auth); 
-  app.use("/service-categories", serviceCategoriesRoute);
-  app.use("/article", articleRoute);
-  app.use("/article-tag", articleTagRoute);
-  app.use("/booking", bookingRoute);
-  app.use("/carousel", carouselRoute);
-  app.use("/coach", coachRoute);
-  app.use("/customer-feedback", customerFeedBack);
-  app.use("/studio-image", studioImageRoute);
-  app.use("/package", packageRoute);
-  app.use("/package-info", packageInfoRoute);
+  app.use("/api/auth", auth); 
+  app.use("/api/service-categories", serviceCategoriesRoute);
+  app.use("/api/article", articleRoute);
+  app.use("/api/article-tag", articleTagRoute);
+  app.use("/api/booking", bookingRoute);
+  app.use("/api/carousel", carouselRoute);
+  app.use("/api/coach", coachRoute);
+  app.use("/api/customer-feedback", customerFeedBack);
+  app.use("/api/studio-image", studioImageRoute);
+  app.use("/api/package", packageRoute);
+  app.use("/api/package-info", packageInfoRoute);
 };
 
 module.exports = router;
