@@ -37,6 +37,7 @@ class StudioImageService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_studioimage.update({
             data : {
@@ -45,7 +46,7 @@ class StudioImageService {
                 isdeleted: true
             },
             where: {
-                studioimageid : data.studioimageid
+                studioimageid : parseInt(params.id)
             }
         })
     }

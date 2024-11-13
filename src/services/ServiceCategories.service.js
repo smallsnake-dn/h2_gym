@@ -37,6 +37,7 @@ class ServiceCategoriesService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params
         const user = req.userLogin;
         await db.core_servicecategories.update({
             data : {
@@ -45,7 +46,7 @@ class ServiceCategoriesService {
                 isdeleted: true
             },
             where: {
-                servicecategoriesid : data.servicecategoriesid
+                servicecategoriesid : parseInt(params.id)
             }
         })
     }

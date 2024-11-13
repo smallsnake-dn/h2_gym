@@ -26,7 +26,7 @@ class AuthController {
     try {
       const rs = await authService.refreshToken(req.headers.authorization)
       res.send({
-        refreshToken : rs
+        accessToken : rs
       })
     } catch (err) {
       next(err);

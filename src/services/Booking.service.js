@@ -39,6 +39,7 @@ class BookingService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_booking.update({
             data : {
@@ -47,7 +48,7 @@ class BookingService {
                 isdeleted: true
             },
             where: {
-                bookingid : data.bookingid
+                bookingid : parseInt(params.id)
             }
         })
     }

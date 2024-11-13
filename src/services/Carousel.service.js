@@ -38,6 +38,7 @@ class CarouselService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_carousellist.update({
             data: {
@@ -46,7 +47,7 @@ class CarouselService {
                 isdeleted: true
             },
             where : {
-                carousellistid : data.carousellistid
+                carousellistid : parseInt(params.id)
             }
         })
     }

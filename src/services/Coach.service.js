@@ -39,6 +39,7 @@ class CoachService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_coachlist.update({
             data : {
@@ -47,7 +48,7 @@ class CoachService {
                 isdeleted: true
             },
             where : {
-                coachlistid : data.coachlistid
+                coachlistid : parseInt(params.id)
             }
         })
     }

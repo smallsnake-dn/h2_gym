@@ -15,6 +15,13 @@ class ObjectResponse {
             message : message
         }
     }
+    
+    static error(message = "error") {
+        return {
+            isError : true,
+            message : message
+        }
+    }
 }
 
 

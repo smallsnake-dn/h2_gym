@@ -36,6 +36,7 @@ class ArticleService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_article.update({
             data : {
@@ -44,7 +45,7 @@ class ArticleService {
                 isdeleted: true
             },
             where: {
-                articleid : data.articleid
+                articleid : parseInt(params.id)
             }
         })
     }

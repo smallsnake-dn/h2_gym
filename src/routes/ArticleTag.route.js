@@ -4,6 +4,6 @@ const route = Router()
 
 route.post("/", serviceController.create);
 route.put("/", serviceController.update);
-route.delete("/", serviceController.delete);
+route.delete("/:id", serviceController.delete);
 
 module.exports = route

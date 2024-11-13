@@ -37,6 +37,7 @@ class PackageService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_package.update({
             data : {
@@ -45,7 +46,7 @@ class PackageService {
                 isdeleted: true
             },
             where : {
-                packageid : data.packageid
+                packageid : parseInt(params.id)
             }
         })
     }

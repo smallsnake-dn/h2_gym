@@ -36,6 +36,7 @@ class CustomerFeedBackService {
 
     async delete(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         await db.core_customerfeedback.update({
             data : {
@@ -44,7 +45,7 @@ class CustomerFeedBackService {
                 isdeleted: true
             },
             where: {
-                customerfeedbackid : data.customerfeedbackid
+                customerfeedbackid : parseInt(params.id)
             }
         })
     }

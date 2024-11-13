@@ -8,7 +8,7 @@ const {
 
 class AuthService {
   async login(body) {
-    const rs = await db.user.findFirst({
+    const rs = await db.system_users.findFirst({
       where: {
         username: body.username,
       },
@@ -31,7 +31,6 @@ class AuthService {
       .catch((err) => {
         throw new Error("Verify token fail");
       });
-    console.log({ username });
     return genAccessToken(username);
   }
 }
