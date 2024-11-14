@@ -5,6 +5,7 @@ const {
   verifyRefreshToken,
 } = require("../helpers/JsonWebTokenHelper");
 const authService = require("../services/Auth.service")
+const ObjectResponse = require("./response/ObjectResponse")
 
 class AuthController {
   async login(req, res, next) {
@@ -16,7 +17,7 @@ class AuthController {
       if(!token) {
         return res.status(403).send("login failt")
       }
-      res.send(token)
+      res.send(ObjectResponse.ok(token))
     } catch (error) {
       next(error)
     }
@@ -25,9 +26,7 @@ class AuthController {
   async refreshToken(req, res, next) {
     try {
       const rs = await authService.refreshToken(req.headers.authorization)
-      res.send({
-        accessToken : rs
-      })
+      res.send(ObjectResponse.ok(rs))
     } catch (err) {
       next(err);
     }
@@ -35,7 +34,7 @@ class AuthController {
 
   async imageKitAuth(req, res, next) {
     const rs = await authService.imageKitAuth();
-    res.send(rs);
+    res.send(ObjectResponse.ok(rs));
   }
 
 }

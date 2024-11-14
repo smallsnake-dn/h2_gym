@@ -37,7 +37,10 @@ class AuthService {
       .catch((err) => {
         throw new Error("Verify token fail");
       });
-    return genAccessToken(username);
+      console.log({token});
+    return {
+      accessToken : await genAccessToken(username)
+    }
   }
 
 
@@ -69,7 +72,7 @@ class AuthService {
   }
 
   async imageKitAuth() {
-    var rs = await imagekit.getAuthenticationParameters();
+    var rs = imagekit.getAuthenticationParameters();
     return rs;
   }
 
