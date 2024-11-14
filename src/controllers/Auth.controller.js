@@ -32,6 +32,12 @@ class AuthController {
       next(err);
     }
   }
+
+  async imageKitAuth(req, res, next) {
+    const rs = await authService.imageKitAuth();
+    res.send(rs);
+  }
+
 }
 
 const validateLogin = (body) => {
