@@ -92,18 +92,20 @@ model core_customerfeedback {
 }
 
 model core_package {
-  packageid         Int                 @id @default(autoincrement())
-  title             String              @db.VarChar(200)
-  description       String?             @db.VarChar(2000)
-  isactived         Boolean
-  createduser       String              @db.VarChar(20)
-  createddate       DateTime?           @db.Timestamp(6)
-  updateduser       String?             @db.VarChar(20)
-  updateddate       DateTime?           @db.Timestamp(6)
-  isdeleted         Boolean
-  deleteduser       String?             @db.VarChar(20)
-  deleteddate       DateTime?           @db.Timestamp(6)
-  core_package_info core_package_info[]
+  packageid           Int                 @id @default(autoincrement())
+  title               String              @db.VarChar(200)
+  description         String?             @db.VarChar(2000)
+  isactived           Boolean
+  createduser         String              @db.VarChar(20)
+  createddate         DateTime?           @db.Timestamp(6)
+  updateduser         String?             @db.VarChar(20)
+  updateddate         DateTime?           @db.Timestamp(6)
+  isdeleted           Boolean
+  deleteduser         String?             @db.VarChar(20)
+  deleteddate         DateTime?           @db.Timestamp(6)
+  imagepath           String?             @db.VarChar(1000)
+  servicecategoriesid Int?
+  core_package_info   core_package_info[]
 }
 
 model core_package_info {

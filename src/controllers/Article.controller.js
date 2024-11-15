@@ -36,6 +36,15 @@ class ArticleController {
             next(error)
         }
     }
+    
+    
+    async getById(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await articleService.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new ArticleController()

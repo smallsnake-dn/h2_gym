@@ -59,6 +59,8 @@ class PackageService {
                 packageid : true,
                 title : true,
                 description : true,
+                servicecategoriesid : true,
+                imagepath : true,
                 core_package_info : {
                     select : {
                         packageinfoid : true,
