@@ -4,30 +4,19 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class StudioImageService {
     async create(req) {
-        // const data = req.body.data.map(async (val, index, arr) => {
-        //     return {
-        //         ...val,
-        //         studioimagepath : await upToFirebase(req),
-        //         description : val.description ? val.description : "",
-        //         isactived : true,
-        //         createduser : "test",
-        //         createddate : dateTimeUtil.getCurrentDateInTimeZone(),
-        //         isdeleted : false
-        //     }
-        // });
-        const data = req.body
-        const user = req.userLogin
-        console.log({req});
-        await db.core_studioimage.createMany({
-            data : {
-                ...data,
-                studioimagepath : await upToFirebase(req),
-                description : data.description ? data.description : "",
+        const data = req.body.data.map((val, index, arr) => {
+            return {
+                ...val,
+                description : val.description ? val.description : "",
                 isactived : true,
                 createduser : "test",
                 createddate : dateTimeUtil.getCurrentDateInTimeZone(),
                 isdeleted : false
             }
+        });
+        const user = req.userLogin
+        await db.core_studioimage.createMany({
+            data
         })
     }
 
