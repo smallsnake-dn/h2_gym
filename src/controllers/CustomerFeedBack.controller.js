@@ -29,9 +29,17 @@ class CustomerFeedBackController {
         }
     }
 
-    async getByLimit(req, res, next) {
+    async getById(req, res, next) {
         try {
-            res.send(ObjectResponse.ok(await customerFeedBackService.getByLimit(req)));
+            res.send(ObjectResponse.ok(await customerFeedBackService.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async get(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await customerFeedBackService.get(req)));
         } catch (error) {
             next(error)
         }

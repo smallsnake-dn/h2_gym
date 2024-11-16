@@ -29,9 +29,17 @@ class BookingController {
         }
     }
 
-    async getByLimit(req, res, next) {
+    async getById(req, res, next) {
         try {
-            res.send(ObjectResponse.ok(await bookingService.getByLimit(req)));
+            res.send(ObjectResponse.ok(await bookingService.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async get(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await bookingService.get(req)));
         } catch (error) {
             next(error)
         }

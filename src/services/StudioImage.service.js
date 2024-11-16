@@ -34,6 +34,7 @@ class StudioImageService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_studioimage.update({
             data : {
@@ -42,7 +43,7 @@ class StudioImageService {
                 updateduser : "test"
             },
             where : {
-                studioimageid : data.studioimageid
+                studioimageid : parseInt(params.id)
             },
             select : {
                 studioimageid : true,
@@ -69,7 +70,26 @@ class StudioImageService {
         })
     }
 
-    async getByLimit (req) {
+    async getById(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = db.core_studioimage.findMany({
+            select :  {
+                studioimageid : true,
+                studioimagename : true,
+                studioimagepath : true,
+                description : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false,
+                studioimageid: parseInt(params.id)
+            }
+        })
+        return rs;
+    }
+    
+    async get(req) {
         const data = req.body.data;
         const params = req.params;
         const rs = db.core_studioimage.findMany({
@@ -82,8 +102,7 @@ class StudioImageService {
             where : {
                 isactived : true,
                 isdeleted : false
-            },
-            take : parseInt(params.limit)
+            }
         })
         return rs;
     }

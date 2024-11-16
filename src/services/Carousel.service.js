@@ -34,6 +34,7 @@ class CarouselService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_carousellist.update({
             data : {
@@ -42,7 +43,7 @@ class CarouselService {
                 updateteddate : dateTimeUtil.getCurrentDateInTimeZone()
             },
             where : {
-                carousellistid : data.carousellistid
+                carousellistid : parseInt(params.id)
             },
             select : {
                 carousellistid : true,
@@ -69,8 +70,27 @@ class CarouselService {
         })
     }
 
-    async getLimit(req) {
-        console.log({req : req.params});
+    async getById(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const user = req.userLogin;
+        const rs = await db.core_carousellist.findMany({
+            select : {
+                carousellistid : true,
+                carousellistname : true,
+                carouselpath : true,
+                description: true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false,
+                carousellistid: parseInt(params.id)
+            }
+        })
+        return rs;
+    }
+    
+    async get(req) {
         const data = req.body.data;
         const params = req.params;
         const user = req.userLogin;
@@ -85,9 +105,6 @@ class CarouselService {
                 isactived : true,
                 isdeleted : false
             }
-            ,
-            skip : 0,
-            take : parseInt(params.limit)
         })
         return rs;
     }

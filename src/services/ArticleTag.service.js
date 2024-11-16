@@ -31,6 +31,7 @@ class ArticleTagService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params
         const user = req.userLogin;
         return await db.core_articletag.update({
             data : {
@@ -39,7 +40,7 @@ class ArticleTagService {
                 updateduser : "test"
             },
             where : {
-                articletagid : data.articletagid
+                articletagid : parseInt(params.id)
             },
             select : {
                 articletagid : true,

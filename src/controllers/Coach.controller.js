@@ -30,9 +30,17 @@ class CoachController {
         }
     }
 
-    async getByLimit (req, res, next) {
+    async getById(req, res, next) {
         try { 
-            res.send(ObjectResponse.ok(await coachSerivce.getByLimit(req)));
+            res.send(ObjectResponse.ok(await coachSerivce.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async get(req, res, next) {
+        try { 
+            res.send(ObjectResponse.ok(await coachSerivce.get(req)));
         } catch (error) {
             next(error)
         }

@@ -30,9 +30,17 @@ class StudioImageController {
         }
     }
 
-    async getByLimit(req, res, next) {
+    async getById(req, res, next) {
         try {
-            res.send(ObjectResponse.ok(await studioImageService.getByLimit(req)));
+            res.send(ObjectResponse.ok(await studioImageService.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async get(req, res, next) {
+        try {
+            res.send(ObjectResponse.ok(await studioImageService.get(req)));
         } catch (error) {
             next(error)
         }

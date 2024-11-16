@@ -34,6 +34,7 @@ class ServiceCategoriesService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_servicecategories.update({
             data : {
@@ -42,7 +43,7 @@ class ServiceCategoriesService {
                 updateduser : "test"
             },
             where : {
-                servicecategoriesid: data.servicecategoriesid
+                servicecategoriesid: parseInt(params.id)
             },
             select : {
                 servicecategoriesid : true,
@@ -69,7 +70,26 @@ class ServiceCategoriesService {
         })
     }
 
-    async getByLimit(req) {
+    async getById(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = await db.core_servicecategories.findMany({
+            select : {
+                servicecategoriesid : true,
+                servicecategoriesname : true,
+                icon : true,
+                description : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false,
+                servicecategoriesid: parseInt(params.id)
+            }
+        })
+        return rs;
+    }
+    
+    async get(req) {
         const data = req.body.data;
         const params = req.params;
         const rs = await db.core_servicecategories.findMany({
@@ -82,8 +102,7 @@ class ServiceCategoriesService {
             where : {
                 isactived : true,
                 isdeleted : false
-            },
-            take : parseInt(params.limit)
+            }
         })
         return rs;
     }

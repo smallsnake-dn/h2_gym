@@ -33,6 +33,7 @@ class ArticleService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_article.update({
             data : {
@@ -41,7 +42,7 @@ class ArticleService {
                 updateduser : "test"
             },
             where : {
-                articleid : data.articleid
+                articleid : parseInt(params.id)
             },
             select : {
                 articleid : true,
@@ -93,7 +94,6 @@ class ArticleService {
     async getById(req) {
         const data = req.body.data;
         const params = req.params;
-        console.log({params});
         const rs = await db.core_article.findMany({
             select : {
                 articleid : true,
@@ -109,6 +109,24 @@ class ArticleService {
                 }
             },
             // take : parseInt(params.limit)
+        })
+        return rs;
+    }
+    
+    async get(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = await db.core_article.findMany({
+            select : {
+                articleid : true,
+                articletagid : true,
+                content : true,
+                title : true
+            },
+            where: {
+                isactived: true,
+                isdeleted: false
+            }
         })
         return rs;
     }

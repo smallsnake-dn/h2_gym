@@ -8,8 +8,9 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 route.post("/", upload.single('studioimagepath'), serviceController.create);
-route.put("/", serviceController.update);
+route.put("/:id", serviceController.update);
 route.delete("/:id", serviceController.delete);
-route.get("/:limit", serviceController.getByLimit);
+route.get("/:id", serviceController.getById);
+route.get("/", serviceController.get);
 
 module.exports = route

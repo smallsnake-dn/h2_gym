@@ -46,6 +46,7 @@ class PackageService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_package.update({
             data : {
@@ -54,7 +55,7 @@ class PackageService {
                 updateduser: "test"
             },
             where : {
-                packageid : data.packageid
+                packageid : parseInt(params.id)
             },
             select : {
                 packageid : true,
@@ -93,7 +94,7 @@ class PackageService {
         })
     }
 
-    async getByLimit(req) {
+    async getById(req) {
         const data = req.body.data;
         const params = req.params;
         const rs = db.core_package.findMany({
@@ -112,10 +113,37 @@ class PackageService {
                     where : {
                         isactived : true,
                         isdeleted : false
+                    }
+                }
+            },
+            where : {
+                isactived : true,
+                isdeleted : false,
+                packageid: parseInt(params.id)
+            }
+        })
+        return rs;
+    }
+    
+    async get(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = db.core_package.findMany({
+            select : {
+                packageid : true,
+                title : true,
+                description : true,
+                servicecategoriesid : true,
+                imagepath : true,
+                core_package_info : {
+                    select : {
+                        packageinfoid : true,
+                        packagetitle : true,
+                        packagevalue : true
                     },
-                    take : parseInt(params.limit),
-                    orderBy : {
-                        createddate : "desc"
+                    where : {
+                        isactived : true,
+                        isdeleted : false
                     }
                 }
             },

@@ -31,9 +31,17 @@ class ServiceCategoriesController {
         }
     }
 
-    async getByLimit(req ,res, next) {
+    async getById(req ,res, next) {
         try {
-            res.send(ObjectResponse.ok(await serviceCategories.getByLimit(req)));
+            res.send(ObjectResponse.ok(await serviceCategories.getById(req)));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    async get(req ,res, next) {
+        try {
+            res.send(ObjectResponse.ok(await serviceCategories.get(req)));
         } catch (error) {
             next(error)
         }

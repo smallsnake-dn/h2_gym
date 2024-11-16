@@ -3,8 +3,9 @@ const serviceController = require("../controllers/Booking.controller")
 const route = Router()
 
 route.post("/", serviceController.create);
-route.put("/", serviceController.update);
+route.put("/:id", serviceController.update);
 route.delete("/:id", serviceController.delete);
-route.get("/:limit", serviceController.getByLimit);
+route.get("/", serviceController.get);
+route.get("/:id", serviceController.getById);
 
 module.exports = route

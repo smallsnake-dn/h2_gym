@@ -33,6 +33,7 @@ class PackageInfoService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_package_info.update({
             data : {
@@ -41,7 +42,7 @@ class PackageInfoService {
                 updateduser : "test"
             },
             where : {
-                packageinfoid : data.packageinfoid
+                packageinfoid : parseInt(params.id)
             },
             select : {
                 packageinfoid: true,

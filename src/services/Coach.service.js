@@ -41,6 +41,7 @@ class CoachService {
 
     async update(req) {
         const data = req.body.data;
+        const params = req.params;
         const user = req.userLogin;
         return await db.core_coachlist.update({
             data : {
@@ -49,7 +50,7 @@ class CoachService {
                 updateduser: "test"
             },
             where : {
-                coachlistid : data.coachlistid
+                coachlistid : parseInt(params.id)
             },
             select : {
                 coachlistid : true,
@@ -81,7 +82,31 @@ class CoachService {
         })
     }
 
-    async getByLimit(req) {
+    async getById(req) {
+        const data = req.body.data;
+        const params = req.params;
+        const rs = db.core_coachlist.findMany({
+            select : {
+                coachlistid : true,
+                avatar : true,
+                dob: true,
+                email : true,
+                experience : true,
+                startdate : true,
+                firstname : true,
+                lastname : true,
+                phone : true
+            },
+            where : {
+                isactived : true,
+                isdeleted : false,
+                coachlistid: parseInt(params.id)
+            }
+        })
+        return rs;
+    }
+    
+    async get(req) {
         const data = req.body.data;
         const params = req.params;
         const rs = db.core_coachlist.findMany({
@@ -99,8 +124,7 @@ class CoachService {
             where : {
                 isactived : true,
                 isdeleted : false
-            },
-            take : parseInt(params.limit)
+            }
         })
         return rs;
     }
