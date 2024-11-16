@@ -1,10 +1,11 @@
 const articleTagService = require("../services/ArticleTag.service")
+const ObjectResponse = require("./response/ObjectResponse")
 
 class ArticleTagController {
     async create(req ,res, next) {
         try {
-            await articleTagService.create(req);
-            res.send("OK");
+            let rs = await articleTagService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -12,8 +13,8 @@ class ArticleTagController {
 
     async update(req ,res, next) {
         try {
-            await articleTagService.update(req);
-            res.send("OK");
+            const ts = await articleTagService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

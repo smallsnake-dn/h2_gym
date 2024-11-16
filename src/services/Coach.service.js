@@ -3,6 +3,7 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class CoachService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
@@ -11,7 +12,7 @@ class CoachService {
                 phone : val.phone? val.phone : "",
                 email : val.email,
                 isactived : true,
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 createduser : "test user",
                 isdeleted : false
             }
@@ -20,12 +21,28 @@ class CoachService {
         await db.core_coachlist.createMany({
             data
         })
+        return await db.core_coachlist.findMany({
+            select : {
+                coachlistid : true,
+                firstname : true,
+                lastname : true,
+                avatar : true,
+                dob : true,
+                email : true,
+                experience : true,
+                phone : true,
+                startdate : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_coachlist.update({
+        return await db.core_coachlist.update({
             data : {
                 ...data,
                 updateddate: dateTimeUtil.getCurrentDateInTimeZone(),
@@ -33,6 +50,17 @@ class CoachService {
             },
             where : {
                 coachlistid : data.coachlistid
+            },
+            select : {
+                coachlistid : true,
+                firstname : true,
+                lastname : true,
+                avatar : true,
+                dob : true,
+                email : true,
+                experience : true,
+                phone : true,
+                startdate : true
             }
         })
     }

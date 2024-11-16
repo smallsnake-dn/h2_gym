@@ -5,11 +5,12 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class PackageService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 isactived : true,
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 createduser : "test user",
                 isdeleted : false
             }
@@ -18,12 +19,35 @@ class PackageService {
         await db.core_package.createMany({
             data
         })
+        return await db.core_package.findMany({
+            select : {
+                packageid : true,
+                title : true,
+                description : true,
+                servicecategoriesid : true,
+                imagepath : true,
+                core_package_info : {
+                    select : {
+                        packageinfoid : true,
+                        packagetitle : true,
+                        packagevalue : true
+                    },
+                    where : {
+                        isactived : true,
+                        isdeleted : false
+                    }
+                }
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_package.update({
+        return await db.core_package.update({
             data : {
                 ...data,
                 updateddate: dateTimeUtil.getCurrentDateInTimeZone(),
@@ -31,6 +55,24 @@ class PackageService {
             },
             where : {
                 packageid : data.packageid
+            },
+            select : {
+                packageid : true,
+                title : true,
+                description : true,
+                servicecategoriesid : true,
+                imagepath : true,
+                core_package_info : {
+                    select : {
+                        packageinfoid : true,
+                        packagetitle : true,
+                        packagevalue : true
+                    },
+                    where : {
+                        isactived : true,
+                        isdeleted : false
+                    }
+                }
             }
         })
     }

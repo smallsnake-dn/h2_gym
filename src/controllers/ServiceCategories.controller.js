@@ -6,8 +6,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class ServiceCategoriesController {
     async create(req ,res, next) {
         try {
-            await serviceCategories.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await serviceCategories.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -15,8 +15,8 @@ class ServiceCategoriesController {
 
     async update(req ,res, next) {
         try {
-            await serviceCategories.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await serviceCategories.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

@@ -4,8 +4,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class CustomerFeedBackController {
     async create(req ,res, next) {
         try {
-            await customerFeedBackService.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await customerFeedBackService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -13,8 +13,8 @@ class CustomerFeedBackController {
 
     async update(req ,res, next) {
         try {
-            await customerFeedBackService.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await customerFeedBackService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

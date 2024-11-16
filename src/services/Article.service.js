@@ -4,12 +4,13 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class ArticleService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 isactived : true,
                 createduser : "test",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 isdeleted : false
             }
         });
@@ -17,12 +18,23 @@ class ArticleService {
         await db.core_article.createMany({
             data
         })
+        return await db.core_article.findMany({
+            select : {
+                articleid : true,
+                articletagid : true,
+                content : true,
+                title : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_article.update({
+        return await db.core_article.update({
             data : {
                 ...data,
                 updateddate : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -30,6 +42,12 @@ class ArticleService {
             },
             where : {
                 articleid : data.articleid
+            },
+            select : {
+                articleid : true,
+                articletagid : true,
+                content : true,
+                title : true
             }
         })
     }

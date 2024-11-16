@@ -4,8 +4,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class ArticleController {
     async create(req ,res, next) {
         try {
-            await articleService.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await articleService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -13,8 +13,8 @@ class ArticleController {
 
     async update(req ,res, next) {
         try {
-            await articleService.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await articleService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

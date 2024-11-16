@@ -4,8 +4,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class CarouselController {
     async create(req ,res, next) {
         try {
-            await carouselService.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await carouselService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -13,8 +13,8 @@ class CarouselController {
 
     async update(req ,res, next) {
         try {
-            await carouselService.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await carouselService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

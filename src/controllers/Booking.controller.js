@@ -4,8 +4,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class BookingController {
     async create(req ,res, next) {
         try {
-            await bookingService.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await bookingService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -13,8 +13,8 @@ class BookingController {
 
     async update(req ,res, next) {
         try {
-            await bookingService.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await bookingService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

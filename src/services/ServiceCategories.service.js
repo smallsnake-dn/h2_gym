@@ -4,13 +4,14 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class ServiceCategoriesService {
     async create(req) {
+        const createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 description : val.description ? val.description : "",
                 isactived : true,
                 createduser : "test",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 isdeleted : false
             }
         });
@@ -18,12 +19,23 @@ class ServiceCategoriesService {
         await db.core_servicecategories.createMany({
             data
         })
+        return await db.core_servicecategories.findMany({
+            select : {
+                servicecategoriesid : true,
+                servicecategoriesname : true,
+                icon : true,
+                description : true
+            }, 
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_servicecategories.update({
+        return await db.core_servicecategories.update({
             data : {
                 ...data,
                 updateddate : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -31,6 +43,12 @@ class ServiceCategoriesService {
             },
             where : {
                 servicecategoriesid: data.servicecategoriesid
+            },
+            select : {
+                servicecategoriesid : true,
+                servicecategoriesname : true,
+                icon : true,
+                description : true
             }
         })
     }

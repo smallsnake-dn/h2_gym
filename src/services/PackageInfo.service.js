@@ -4,12 +4,13 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class PackageInfoService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 isactived : true,
                 createduser : "test",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 isdeleted : false
             }
         });
@@ -17,12 +18,23 @@ class PackageInfoService {
         await db.core_package_info.createMany({
             data
         })
+        return await db.core_package_info.findMany({
+            select : {
+                packageinfoid: true,
+                packageid : true,
+                packagetitle : true,
+                packagevalue : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_package_info.update({
+        return await db.core_package_info.update({
             data : {
                 ...data,
                 updateddate : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -30,6 +42,12 @@ class PackageInfoService {
             },
             where : {
                 packageinfoid : data.packageinfoid
+            },
+            select : {
+                packageinfoid: true,
+                packageid : true,
+                packagetitle : true,
+                packagevalue : true
             }
         })
     }

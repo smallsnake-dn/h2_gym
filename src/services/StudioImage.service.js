@@ -4,13 +4,14 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class StudioImageService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone();
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 description : val.description ? val.description : "",
                 isactived : true,
                 createduser : "test",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 isdeleted : false
             }
         });
@@ -18,12 +19,23 @@ class StudioImageService {
         await db.core_studioimage.createMany({
             data
         })
+        return db.core_studioimage.findMany({
+            select : {
+                studioimageid : true,
+                studioimagename : true,
+                studioimagepath : true,
+                description : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_studioimage.update({
+        return await db.core_studioimage.update({
             data : {
                 ...data,
                 updateddated : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -31,6 +43,12 @@ class StudioImageService {
             },
             where : {
                 studioimageid : data.studioimageid
+            },
+            select : {
+                studioimageid : true,
+                studioimagename : true,
+                studioimagepath : true,
+                description : true
             }
         })
     }

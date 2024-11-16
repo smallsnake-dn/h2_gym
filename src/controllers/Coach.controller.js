@@ -5,8 +5,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class CoachController {
     async create(req ,res, next) {
         try {
-            await coachSerivce.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await coachSerivce.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -14,8 +14,8 @@ class CoachController {
 
     async update(req ,res, next) {
         try {
-            await coachSerivce.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await coachSerivce.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

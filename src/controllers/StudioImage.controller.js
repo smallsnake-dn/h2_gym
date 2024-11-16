@@ -5,8 +5,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class StudioImageController {
     async create(req ,res, next) {
         try {
-            await studioImageService.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await studioImageService.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -14,8 +14,8 @@ class StudioImageController {
 
     async update(req ,res, next) {
         try {
-            await studioImageService.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await studioImageService.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

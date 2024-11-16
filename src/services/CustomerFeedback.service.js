@@ -4,12 +4,13 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class CustomerFeedBackService {
     async create(req) {
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 isactived : true,
                 createduser : "test",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 isdeleted : false
             }
         });
@@ -17,12 +18,26 @@ class CustomerFeedBackService {
         await db.core_customerfeedback.createMany({
             data
         })
+        return await db.core_customerfeedback.findMany({
+            select : {
+                customerfeedbackid : true,
+                customername : true,
+                avatar : true,
+                content : true,
+                gender : true,
+                numberofstar : true,
+                videopath : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_customerfeedback.update({
+        return await db.core_customerfeedback.update({
             data : {
                 ...data,
                 updateddate : dateTimeUtil.getCurrentDateInTimeZone(),
@@ -30,6 +45,15 @@ class CustomerFeedBackService {
             },
             where : {
                 customerfeedbackid : data.customerfeedbackid
+            },
+            select : {
+                customerfeedbackid : true,
+                customername : true,
+                avatar : true,
+                content : true,
+                gender : true,
+                numberofstar : true,
+                videopath : true
             }
         })
     }

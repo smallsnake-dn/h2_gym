@@ -6,8 +6,8 @@ const ObjectResponse = require("./response/ObjectResponse")
 class PackageInfoController {
     async create(req ,res, next) {
         try {
-            await packageSerivce.create(req);
-            res.send(ObjectResponse.ok());
+            let rs = await packageSerivce.create(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }
@@ -15,8 +15,8 @@ class PackageInfoController {
 
     async update(req ,res, next) {
         try {
-            await packageSerivce.update(req);
-            res.send(ObjectResponse.ok());
+            let rs = await packageSerivce.update(req);
+            res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
         }

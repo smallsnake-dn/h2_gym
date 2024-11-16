@@ -4,12 +4,12 @@ const dateTimeUtil = require("../utils/DateTime.util")
 
 class CarouselService {
     async create(req) {
-        console.log(req.body.data);
+        let createDate = dateTimeUtil.getCurrentDateInTimeZone()
         const data = req.body.data.map((val, index, arr) => {
             return {
                 ...val,
                 description : val.description ? val.description : "",
-                createddate : dateTimeUtil.getCurrentDateInTimeZone(),
+                createddate : createDate,
                 createduser : "test user",
                 isactived : true,
                 isdeleted : false
@@ -19,12 +19,23 @@ class CarouselService {
         await db.core_carousellist.createMany({
             data
         })
+        return await db.core_carousellist.findMany({
+            select : {
+                carousellistid : true,
+                carousellistname : true,
+                carouselpath : true,
+                description : true
+            },
+            where : {
+                createddate : createDate
+            }
+        })
     }
 
     async update(req) {
         const data = req.body.data;
         const user = req.userLogin;
-        await db.core_carousellist.update({
+        return await db.core_carousellist.update({
             data : {
                 ...data,
                 updateduser : "test",
@@ -32,6 +43,12 @@ class CarouselService {
             },
             where : {
                 carousellistid : data.carousellistid
+            },
+            select : {
+                carousellistid : true,
+                carousellistname : true,
+                carouselpath : true,
+                description : true
             }
         })
     }
