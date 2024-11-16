@@ -78,7 +78,8 @@ class CarouselService {
             select : {
                 carousellistid : true,
                 carousellistname : true,
-                carouselpath : true
+                carouselpath : true,
+                description: true
             },
             where : {
                 isactived : true,
