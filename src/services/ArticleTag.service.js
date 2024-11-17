@@ -70,7 +70,7 @@ class ArticleTagService {
         const data = req.body.data;
         const params = req.params
         const user = req.userLogin;
-        return await db.core_articletag.findFirst({
+        return await db.core_articletag.findMany({
             select : {
                 articletagid : true,
                 articletagname : true
@@ -86,7 +86,7 @@ class ArticleTagService {
         const data = req.body.data;
         const params = req.params
         const user = req.userLogin;
-        return await db.core_articletag.findFirst({
+        return await db.core_articletag.findMany({
             select : {
                 articletagid : true,
                 articletagname : true
