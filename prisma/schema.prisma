@@ -21,6 +21,7 @@ model core_article {
   deleteduser  String?   @db.VarChar(20)
   deleteddate  DateTime? @db.Timestamp(6)
   imagepath    String?   @db.VarChar(2000)
+  summary      String?   @db.VarChar(1000)
 }
 
 model core_articletag {

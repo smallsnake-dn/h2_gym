@@ -64,6 +64,39 @@ class ArticleTagService {
             }
         })
     }
+    
+    
+    async getById(req) {
+        const data = req.body.data;
+        const params = req.params
+        const user = req.userLogin;
+        await db.core_articletag.findFirst({
+            select : {
+                articletagid : true,
+                articletagname : true
+            },
+            where: {
+                articletagid : parseInt(params.id)
+            }
+        })
+    }
+    
+    
+    async get(req) {
+        const data = req.body.data;
+        const params = req.params
+        const user = req.userLogin;
+        await db.core_articletag.findFirst({
+            select : {
+                articletagid : true,
+                articletagname : true
+            },
+            where: {
+                isactived : true,
+                isdeleted : false
+            }
+        })
+    }
 
 }
 

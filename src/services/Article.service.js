@@ -102,7 +102,8 @@ class ArticleService {
                 articletagid : true,
                 content : true,
                 title : true,
-                imagepath : true
+                imagepath : true,
+                summary : true
             },
             where : {
                 isactived : true,
@@ -125,7 +126,8 @@ class ArticleService {
                 articletagid : true,
                 content : true,
                 title : true,
-                imagepath : true
+                imagepath : true,
+                summary : true
             },
             where: {
                 isactived: true,

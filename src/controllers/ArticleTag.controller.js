@@ -28,6 +28,26 @@ class ArticleTagController {
             next(error)
         }
     }
+    
+    
+    async getById(req ,res, next) {
+        try {
+            let rs = await articleTagService.getById(req);
+            res.send(ObjectResponse.ok(rs));
+        } catch (error) {
+            next(error)
+        }
+    }
+    
+    
+    async get(req ,res, next) {
+        try {
+            let rs = await articleTagService.get(req);
+            res.send(ObjectResponse.ok(rs));
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = new ArticleTagController()
