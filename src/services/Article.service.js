@@ -25,7 +25,8 @@ class ArticleService {
                 content : true,
                 title : true,
                 imagepath : true,
-                summary : true
+                summary : true,
+                createddate : true
             },
             where : {
                 createddate : createDate
@@ -52,7 +53,8 @@ class ArticleService {
                 content : true,
                 title : true,
                 imagepath : true,
-                summary : true
+                summary : true,
+                createddate : true
             }
         })
     }
@@ -83,7 +85,8 @@ class ArticleService {
                 articletagid : true,
                 content : true,
                 title : true,
-                summary : true
+                summary : true,
+                createddate : true
             },
             where : {
                 isactived : true,
@@ -106,7 +109,8 @@ class ArticleService {
                 content : true,
                 title : true,
                 imagepath : true,
-                summary : true
+                summary : true,
+                createddate : true
             },
             where : {
                 isactived : true,
@@ -130,7 +134,8 @@ class ArticleService {
                 content : true,
                 title : true,
                 imagepath : true,
-                summary : true
+                summary : true,
+                createddate : true
             },
             where: {
                 isactived: true,
