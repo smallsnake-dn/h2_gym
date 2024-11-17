@@ -24,7 +24,8 @@ class ArticleService {
                 articletagid : true,
                 content : true,
                 title : true,
-                imagepath : true
+                imagepath : true,
+                summary : true
             },
             where : {
                 createddate : createDate
@@ -50,7 +51,8 @@ class ArticleService {
                 articletagid : true,
                 content : true,
                 title : true,
-                imagepath : true
+                imagepath : true,
+                summary : true
             }
         })
     }
@@ -80,7 +82,8 @@ class ArticleService {
                 articleid : true,
                 articletagid : true,
                 content : true,
-                title : true
+                title : true,
+                summary : true
             },
             where : {
                 isactived : true,
