@@ -20,6 +20,7 @@ model core_article {
   isdeleted    Boolean
   deleteduser  String?   @db.VarChar(20)
   deleteddate  DateTime? @db.Timestamp(6)
+  imagepath    String?   @db.VarChar(2000)
 }
 
 model core_articletag {
@@ -127,7 +128,7 @@ model core_package_info {
 model core_servicecategories {
   servicecategoriesid   Int       @id @default(autoincrement())
   servicecategoriesname String    @db.VarChar(500)
-  icon                  String    @db.VarChar(100)
+  icon                  String    @db.VarChar(1000)
   description           String?   @db.VarChar(2000)
   isactived             Boolean
   createduser           String    @db.VarChar(20)
