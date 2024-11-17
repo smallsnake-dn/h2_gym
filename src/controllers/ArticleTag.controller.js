@@ -13,7 +13,7 @@ class ArticleTagController {
 
     async update(req ,res, next) {
         try {
-            const ts = await articleTagService.update(req);
+            const rs = await articleTagService.update(req);
             res.send(ObjectResponse.ok(rs));
         } catch (error) {
             next(error)
